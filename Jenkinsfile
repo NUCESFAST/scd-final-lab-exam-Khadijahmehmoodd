@@ -131,13 +131,13 @@ pipeline {
 
 def buildDockerImage(imageName) {
     withCredentials([usernamePassword(credentialsId: env.registryCredential, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        sh "docker build -t ${env.DOCKER_REGISTRY}/${imageName}:${env.BUILD_ID} ."
+        bat "docker build -t ${env.DOCKER_REGISTRY}/${imageName}:${env.BUILD_ID} ."
     }
 }
 
 def pushDockerImage(imageName) {
     withCredentials([usernamePassword(credentialsId: env.registryCredential, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
-        sh "docker push ${env.DOCKER_REGISTRY}/${imageName}:${env.BUILD_ID}"
+        bat "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
+        bat "docker push ${env.DOCKER_REGISTRY}/${imageName}:${env.BUILD_ID}"
     }
 }
