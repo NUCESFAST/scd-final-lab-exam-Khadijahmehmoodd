@@ -1,14 +1,15 @@
 pipeline {
     environment {
-        registryCredential = 'docker-hub' // Make sure this is the ID of your Docker Hub credentials in Jenkins
+        registryCredential = 'docker-hub' // Jenkins credentials ID for Docker Hub
         DOCKER_REGISTRY = 'khadijahmehmood/scd-final-lab-exam'
+        GIT_REPO = 'https://github.com/NUCESFAST/scd-final-lab-exam-Khadijahmehmoodd.git'
     }
     agent any
     stages {
         stage('Checkout') {
             steps {
                 script {
-                    git branch: 'master', url: 'https://github.com/NUCESFAST/scd-final-lab-exam-Khadijahmehmoodd.git'
+                    git branch: 'master', url: "${env.GIT_REPO}"
                 }
             }
         }
@@ -18,8 +19,10 @@ pipeline {
                     stages {
                         stage('Build Auth Service') {
                             steps {
-                                script {
-                                    buildDockerImage('Auth', 'auth-service', '600970')
+                                dir('Auth') {
+                                    script {
+                                        buildDockerImage('auth-service')
+                                    }
                                 }
                             }
                         }
@@ -34,10 +37,12 @@ pipeline {
                 }
                 stage('Classrooms Service') {
                     stages {
-                        stage('Build Classroom Service') {
+                        stage('Build Classrooms Service') {
                             steps {
-                                script {
-                                    buildDockerImage('Classrooms', 'classrooms-service', '500970')
+                                dir('Classrooms') {
+                                    script {
+                                        buildDockerImage('classrooms-service')
+                                    }
                                 }
                             }
                         }
@@ -54,8 +59,10 @@ pipeline {
                     stages {
                         stage('Build Event-Bus Service') {
                             steps {
-                                script {
-                                    buildDockerImage('event-bus', 'event-bus-service', '400970')
+                                dir('event-bus') {
+                                    script {
+                                        buildDockerImage('event-bus-service')
+                                    }
                                 }
                             }
                         }
@@ -72,8 +79,10 @@ pipeline {
                     stages {
                         stage('Build Post Service') {
                             steps {
-                                script {
-                                    buildDockerImage('Post', 'post-service', '300970')
+                                dir('Post') {
+                                    script {
+                                        buildDockerImage('post-service')
+                                    }
                                 }
                             }
                         }
@@ -90,8 +99,10 @@ pipeline {
                     stages {
                         stage('Build Frontend Service') {
                             steps {
-                                script {
-                                    buildDockerImage('client', 'frontend-service', '200970')
+                                dir('client') {
+                                    script {
+                                        buildDockerImage('frontend-service')
+                                    }
                                 }
                             }
                         }
@@ -118,11 +129,9 @@ pipeline {
     }
 }
 
-def buildDockerImage(directory, imageName, port) {
+def buildDockerImage(imageName) {
     withCredentials([usernamePassword(credentialsId: env.registryCredential, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        dir(directory) {
-            sh "docker build -t ${env.DOCKER_REGISTRY}/${imageName}:${env.BUILD_ID} --build-arg PORT=${port} ."
-        }
+        sh "docker build -t ${env.DOCKER_REGISTRY}/${imageName}:${env.BUILD_ID} ."
     }
 }
 
