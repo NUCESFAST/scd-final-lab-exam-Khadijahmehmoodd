@@ -2,7 +2,7 @@ pipeline {
     environment {
         registryCredential = 'Docker-hubb' // Jenkins credentials ID for Docker Hub
         DOCKER_REGISTRY = 'khadijahmehmood/scd-final-lab-examm'
-        TAG:'LATEST'
+        TAG = 'latest' // Corrected TAG definition
         GIT_REPO = 'https://github.com/NUCESFAST/scd-final-lab-exam-Khadijahmehmoodd.git'
     }
     agent any
@@ -131,13 +131,17 @@ pipeline {
 }
 
 def buildDockerImage(imageName) {
-    def image = docker.build("${env.DOCKER_REGISTRY}/${imageName}")
+    def image = docker.build("${env.DOCKER_REGISTRY}/${imageName}:${TAG}") // Added TAG to the image name
     return image
 }
 
 def pushDockerImage(imageName) {
-    docker.withRegistry('', registryCredential) {
-        def image = docker.image("${env.DOCKER_REGISTRY}/${imageName}")
-        image.push()
+    try {
+        docker.withRegistry('', registryCredential) {
+            def image = docker.image("${env.DOCKER_REGISTRY}/${imageName}:${TAG}") // Added TAG to the image name
+            image.push()
+        }
+    } catch (Exception e) {
+        println "Failed to push image: ${e.message}"
     }
 }
