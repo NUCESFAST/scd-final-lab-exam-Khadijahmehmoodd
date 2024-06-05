@@ -15,7 +15,7 @@ services:
       context: ./Auth
       dockerfile: Dockerfile
     ports:
-      - "600970:600970"
+      - "10970:10970"
     container_name: auth_service
 
   classrooms:
@@ -23,7 +23,7 @@ services:
       context: ./Classrooms
       dockerfile: Dockerfile
     ports:
-      - "500970:500970"
+      - "20970:20970"
     container_name: classrooms_service
 
   event-bus:
@@ -31,7 +31,7 @@ services:
       context: ./event-bus
       dockerfile: Dockerfile
     ports:
-      - "400970:400970"
+      - "30970:30970"
     container_name: event_bus_service
 
   post:
@@ -39,7 +39,7 @@ services:
       context: ./Post
       dockerfile: Dockerfile
     ports:
-      - "300970:300970"
+      - "40970:40970"
     container_name: post_service
 
   mongo:

@@ -21,6 +21,6 @@ FROM nginx:alpine
 COPY --from=0 /200970_frontend/build /usr/share/nginx/html
 
 # Expose the port the app runs on
-EXPOSE 200970
+EXPOSE 0970
 
 # No need to specify CMD as nginx will run by default
