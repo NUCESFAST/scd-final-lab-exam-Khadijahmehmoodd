@@ -130,11 +130,13 @@ pipeline {
 }
 
 def buildDockerImage(imageName) {
-    docker.build("${DOCKER_REGISTRY}/${imageName}")
+    def image = docker.build("${env.DOCKER_REGISTRY}/${imageName}")
+    return image
 }
 
 def pushDockerImage(imageName) {
     docker.withRegistry('', registryCredential) {
-        docker.image("${DOCKER_REGISTRY}/${imageName}").push()
+        def image = docker.image("${env.DOCKER_REGISTRY}/${imageName}")
+        image.push()
     }
 }
