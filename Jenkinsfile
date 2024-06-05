@@ -1,7 +1,8 @@
 pipeline {
     environment {
         registryCredential = 'Docker-hubb' // Jenkins credentials ID for Docker Hub
-        DOCKER_REGISTRY = 'khadijahmehmood/scd-final-lab-exam'
+        DOCKER_REGISTRY = 'khadijahmehmood/scd-final-lab-examm'
+        TAG:'LATEST'
         GIT_REPO = 'https://github.com/NUCESFAST/scd-final-lab-exam-Khadijahmehmoodd.git'
     }
     agent any
