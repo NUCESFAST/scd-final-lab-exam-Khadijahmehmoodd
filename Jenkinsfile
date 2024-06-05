@@ -2,7 +2,7 @@ pipeline {
     environment {
         registryCredential = 'Docker-hubb' // Jenkins credentials ID for Docker Hub
         DOCKER_REGISTRY = 'khadijahmehmood/scd-final-lab-examm'
-        TAG = 'latest' // Corrected TAG definition
+        TAG = 'LATEST' // Corrected TAG definition
         GIT_REPO = 'https://github.com/NUCESFAST/scd-final-lab-exam-Khadijahmehmoodd.git'
     }
     agent any
@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Build and Push Docker Images') {
             parallel {
-                stage('Auth Service') {
+                stage('i200970 Auth Service') {
                     stages {
                         stage('Build Auth Service') {
                             steps {
@@ -27,7 +27,7 @@ pipeline {
                                 }
                             }
                         }
-                        stage('Push Auth Service') {
+                        stage(' 20i-0970 Push Auth Service') {
                             steps {
                                 script {
                                     pushDockerImage('auth-service')
@@ -36,7 +36,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Classrooms Service') {
+                stage('20i-0970 Classrooms Service') {
                     stages {
                         stage('Build Classrooms Service') {
                             steps {
@@ -47,7 +47,7 @@ pipeline {
                                 }
                             }
                         }
-                        stage('Push Classrooms Service') {
+                        stage('20i-0970 Push Classrooms Service') {
                             steps {
                                 script {
                                     pushDockerImage('classrooms-service')
@@ -56,7 +56,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Event-Bus Service') {
+                stage('20i-0970 Event-Bus Service') {
                     stages {
                         stage('Build Event-Bus Service') {
                             steps {
@@ -67,7 +67,7 @@ pipeline {
                                 }
                             }
                         }
-                        stage('Push Event-Bus Service') {
+                        stage('20i-0970 Push Event-Bus Service') {
                             steps {
                                 script {
                                     pushDockerImage('event-bus-service')
@@ -76,7 +76,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Post Service') {
+                stage(' 20i-0970 Post Service') {
                     stages {
                         stage('Build Post Service') {
                             steps {
@@ -87,7 +87,7 @@ pipeline {
                                 }
                             }
                         }
-                        stage('Push Post Service') {
+                        stage('20i-0970 Push Post Service') {
                             steps {
                                 script {
                                     pushDockerImage('post-service')
@@ -96,7 +96,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Frontend Service') {
+                stage('20i-0970 Frontend Service') {
                     stages {
                         stage('Build Frontend Service') {
                             steps {
@@ -107,7 +107,7 @@ pipeline {
                                 }
                             }
                         }
-                        stage('Push Frontend Service') {
+                        stage('20i-0970 Push Frontend Service') {
                             steps {
                                 script {
                                     pushDockerImage('frontend-service')
