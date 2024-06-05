@@ -34,7 +34,7 @@ pipeline {
                 }
                 stage('Classrooms Service') {
                     stages {
-                        stage('Build Classrooms Service') {
+                        stage('Build Classroom Service') {
                             steps {
                                 script {
                                     buildDockerImage('Classrooms', 'classrooms-service', '500970')
