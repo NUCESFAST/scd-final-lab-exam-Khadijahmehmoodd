@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: classrooms-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: classrooms
+  template:
+    metadata:
+      labels:
+        app: classrooms
+    spec:
+      containers:
+      - name: classrooms
+        image: khadijahmehmood/scd-final-lab-examm/classrooms-service:latest
+        ports:
+        - containerPort: 1970
